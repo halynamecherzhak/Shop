@@ -7,12 +7,26 @@
  */
 class Characteristic{
 
-    public static $characteristic=array(0=>array("Tulip"=>"Imported from Holland","Term"=>"3months","Color"=>"Red,Yellow,Pink"),
-        1=>array("Orchid"=>"Imported from America","Term"=>"Unlimited","Color"=>"White,Pink,Violet")
-    );
-    public static function getCharacteristic()
+    public static $products= array ('tulip' => 'Imported from Holland,available amount:50',
+        'orchid'=>'Imported from America,available amount:25',
+        'chocolate'=>'Imported from Switzerland,available amount:15'
+        );
+
+    public static function getProducts(): array
     {
-        return self::$characteristic;
+        return self::$products;
     }
+    public static function setFlowers(array $products): void
+    {
+        self::$products = $products;
+    }
+     public static function printProducts()
+     {
+         foreach(self::getProducts() as $key => $value)
+         {
+             echo "$key = $value <br />";
+         }
+     }
 }
 ?>
+

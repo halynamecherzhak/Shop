@@ -10,7 +10,6 @@ class Product
     private $type;
     private $price;
     private $category;
-    //private $products = array();
 
     public function __construct($type,$price,$category)
     {
@@ -43,14 +42,6 @@ class Product
     {
         $this->category = $category;
     }
-    /*public function getProducts()
-    {
-        return $this->products;
-    }
-    public function setProducts($products)
-    {
-        $this->products = $products;
-    }*/
     public function showAvailableProducts()
     {
         return "Name: ".$this->getType()." Price".$this->getPrice()."UAH"." Category: ".$this->getCategory();

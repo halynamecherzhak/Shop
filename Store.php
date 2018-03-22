@@ -13,8 +13,53 @@
 require_once ("Product.php");
 require_once ("Customer.php");
 require_once ("Characteristic.php");
+require_once ("Delivery.php");
 
-//$name = $email = $delivery= $type = $number = "";
+class Shop
+{
+    public $amount;
+    public $discount;
+
+    public function __construct($amount)
+    {
+        $this->amount=$amount;
+    }
+    public function __set($amount,$discount)
+    {
+
+        if ($amount < 1) {
+            //throw new Exception("Invalid number of flowers");
+            echo "The item isn't available!";
+        }
+        else
+            {
+                $this->amount=$amount;
+                $this->discount=$discount;
+            }
+
+    }
+
+    public $total;
+
+    public function totalPrice()
+    {
+        $total = $this->amount * $this->getPrice();
+        return "The full price  of flower is : ".$total."<br>";
+    }
+    public function countDiscount()
+    {
+        if($this->getPrice()>300)
+        {
+            //$this->discount=$this->discount*0.5;
+            $this->discount=0.5;
+            $this->totalPrice()*0.5;
+        }
+        else
+            {
+            echo "Price isn't enough to get the discount!";
+            }
+    }
+}
 $number="";
 $nameErr = $emailErr = $deliveryErr = $typeErr = $numberErr = "";
 
@@ -75,12 +120,12 @@ $flower=new Product('tulip',15,'plant');
 $flowerPot=new Product('flowerpot',50,'plant');
 $chocolate=new Product('chocolate',30,'sweet');
 
-//echo $flower->getType().$flower->getPrice().$flower->getCategory();
 echo $flower->showAvailableProducts()."<br>";
-Characteristic::getCharacteristic();
 
 echo $flowerPot->showAvailableProducts()."<br>";
+
 echo $chocolate->showAvailableProducts();
+
 
 ?>
 
@@ -90,6 +135,13 @@ echo $chocolate->showAvailableProducts();
 </head>
 <body>
 <h2>Characteristic</h2>
+</body>
+</html>
+<?php
+    echo Characteristic::printProducts();
+?>
+<html>
+<body>
 <h2>Ordering Form </h2>
 <p><span class = "error">* required field.</span></p>
 <form method = "POST" action = "<?php
@@ -109,8 +161,8 @@ echo htmlspecialchars($_SERVER["PHP_SELF"]);?>";
         </td>
     </tr>
     <tr>
-        <td>Delivery:</td>
-        <td><input type = "text" name = "delivery">
+        <td>Address:</td>
+        <td><input type = "text" name = "address">
             <span class = "error">* <?php echo $deliveryErr;?></span>
         </td>
     </tr>
@@ -133,6 +185,7 @@ echo htmlspecialchars($_SERVER["PHP_SELF"]);?>";
     </tr>
 </table>
 </form>
+
 <?php
 echo "<h2>Your Given details are as :</h2>";
 echo "Name-> ".$name;
@@ -150,6 +203,28 @@ echo "<br>";
 echo "Amount-> ".$number;
 echo "<br>";
 ?>
+<br>
+<button type="button"> <b>Count Price</b></button>
+<form>
+    <br>
+    Price:
+    <input type="text" name="totalPrice">
+    City:
+    <input type="text" name="City">
+    Post:
+    <select name="posts">
+        <option value="New Post">NewPost</option>
+        <option value="UKR Post">UKRPost</option>
+    </select>
+    Delivery Type:
+    <select name="delivery_type">
+        <option value="courier">Courier</option>
+        <option value="department">Department</option>
+    </select>
+</form>
+<button type="button"> <b> Confirm </b></button>
 </body>
 </html>
+
+
 
